@@ -61,6 +61,14 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+         /* Styling for each project section */
+         .resume {
+            background-color: white;
+            padding: 1em;
+            margin: 1em 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
         /* Styling for project titles */
         .project h2 {
             margin-top: 0;
@@ -80,6 +88,7 @@
             margin-top: 2em;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.2.146/pdf.min.js"></script>
 </head>
 
 <body>
@@ -100,15 +109,24 @@
         <!-- About me -->
         <section id="about" class="about">
             <h2>About Me</h2>
-            <p>[Brief description about me]</p>
+            <div id="about-me-content"></div>
         </section>
+            <script>
+                fetch('https://raw.githubusercontent.com/M72Z00/M72Z00.github.io/e30da3ee0f925f1114441b5c1b8270544705685f/About%20Me')
+                    .then(response => response.text())
+                    .then(text => {
+                        document.getElementById('about-me-content').innerText = text;
+                    });
+                </script>
+
         <!-- Resume section -->
         <section id="resume" class="resume">
-            <embed src="https://github.com/M72Z00/M72Z00.github.io/blob/092e03e012a22188818569973d787c0e43384a02/Monserad%20Zamora%20Resume%20(07.31.24).pdf" type="application/pdf" width="100%" height="600px" />
-            </section>
+            <h2>My Resume</h2>
+            <canvas id="pdf-canvas"></canvas>
+        </section>
 
         <!-- Project 1 section -->
-        <section id="project1" class="project">
+        <section id="project" class="project">
             <h2>Project 1: [Project Title]</h2>
             <p>[Brief description of the project]</p>
             <a href="[GitHub Repository Link]">View on GitHub</a>
@@ -140,5 +158,41 @@
         <p>&copy; 2024 My Portfolio</p>
     </footer>
 </body>
-
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // URL of the PDF
+        const url = 'https://M72Z00.github.io/Monserad%20Zamora%20Resume%20(07.31.24).pdf';
+    
+        // Load the PDF.js library
+        pdfjsLib.getDocument(url).promise.then(pdf => {
+            console.log('PDF loaded');
+    
+            // Fetch the first page
+            pdf.getPage(1).then(page => {
+                console.log('Page loaded');
+    
+                // Set the scale (zoom level)
+                const scale = 1.5;
+                const viewport = page.getViewport({ scale });
+    
+                // Set up the canvas
+                const canvas = document.getElementById('pdf-canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+    
+                // Render the PDF page into the canvas context
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                page.render(renderContext).promise.then(() => {
+                    console.log('Page rendered');
+                });
+            });
+        }).catch(error => {
+            console.error('Error loading PDF: ', error);
+        });
+    });
+    </script>
 </html>
