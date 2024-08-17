@@ -147,7 +147,7 @@
           delay(10);                       // wait 10 milliseconds
           return analogRead(sensorPinHigh); // Read the analog value from sensor
         }
-        </code></pre>
+    </code></pre>
     </div>
 </body>
 </html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autonomous Water Filtering Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        .code-container {
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            overflow: auto; /* Allows scrolling only if needed */
+            max-width: 100%; /* Ensures it fits within the viewport */
+            box-sizing: border-box; /* Includes padding and border in element's total width and height */
+        }
+        pre {
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 0;
+            white-space: pre-wrap; /* Ensures long lines wrap */
+        }
+        code {
+            font-family: monospace;
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            margin: 0 0 1em;
+        }
+        ul {
+            margin: 0 0 1em;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    
+    <h3>Code Snippet:</h3>
+    <div class="code-container">
+        <pre><code>
+// constants won't change
+#define BUTTON_PIN 3        // Pin for the manual override button
+#define sensorPinLow A3     // Pin for the low water level sensor
+#define sensorPinHigh A4    // Pin for the high water level sensor
+const int RELAY_PIN = A5;   // Pin for controlling the pump via relay
+
+#include &lt;Wire.h&gt; 
+#include &lt;LiquidCrystal_I2C.h&gt;
+// LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// the setup function runs once when you press reset or power the board
+void setup() {
+  pinMode(RELAY_PIN, OUTPUT);
+  digitalWrite(RELAY_PIN, HIGH);  // Ensure the pump is off initially
+
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+
+// the loop function runs over and over again forever
+void loop() {
+  int lowLevel = readSensorLow();
+  int highLevel = readSensorHigh();
+  byte buttonState = digitalRead(BUTTON_PIN);
+
+  Serial.print("Low level: ");
+  Serial.println(lowLevel);
+  Serial.print("High level: ");
+  Serial.println(highLevel);
+  delay(500);
+
+  if (highLevel > 600) {
+    Serial.println("Water Level: Full");
+    digitalWrite(RELAY_PIN, HIGH); // Turn off the pump
+  } else if (highLevel < 610 && lowLevel >= 620) {
+    Serial.println("Water level low");
+  } else {
+    Serial.println("Water Level: Low");
+    if (buttonState == LOW) {
+      Serial.println("Button pressed - Filling");
+      digitalWrite(RELAY_PIN, LOW); // Activate the pump
+    } else {
+      Serial.println("Button released - ERROR when filling");
+      digitalWrite(RELAY_PIN, HIGH); // Turn off the pump
+    }
+  }
+}
+
+// This is a function used to get the reading for the LOW water level sensor
+int readSensorLow() {
+  delay(10);                      // wait 10 milliseconds
+  return analogRead(sensorPinLow); // Read the analog value from sensor
+}
+
+// This is a function used to get the reading for the HIGH water level sensor
+int readSensorHigh() {
+  delay(10);                       // wait 10 milliseconds
+  return analogRead(sensorPinHigh); // Read the analog value from sensor
+}
+        </code></pre>
+    </div>
+</body>
+</html>
