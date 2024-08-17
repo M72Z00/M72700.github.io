@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autonomous Water Filtering Cart Code</title>
+    <style>
+        .code-container {
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            overflow-x: auto;
+        }
+        pre {
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h2>Autonomous Water Filtering Cart Code</h2>
+    <p>The following code was used to control the water level sensors and relay system, which was responsible for activating the pump when necessary:</p>
+
+    <div class="code-container">
+        <pre><code>
+        // constants won't change
+        #define BUTTON_PIN 3        // Button pin
+        #define sensorPinLow A3     // Low Water level sensor pin
+        #define sensorPinHigh A4    // High Water level sensor pin
+        const int RELAY_PIN = A5;   // Relay pin for controlling the pump
+
+        #include &lt;Wire.h&gt; 
+        #include &lt;LiquidCrystal_I2C.h&gt;
+        // LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+        // the setup function runs once when you press reset or power the board
+        void setup() {
+          // initialize digital pin as an output.
+          pinMode(RELAY_PIN, OUTPUT);
+          digitalWrite(RELAY_PIN, HIGH);
+
+          pinMode(BUTTON_PIN, INPUT_PULLUP);
+
+          // Setting Up LCD Screen
+          // lcd.begin(16,2);
+          // lcd.backlight();
+          // lcd.clear();
+
+          Serial.begin(9600);
+        }
+
+        // the loop function runs over and over again forever
+        void loop() {
+          // get the reading from the function below and print it
+          int lowLevel = readSensorLow();
+          int highLevel = readSensorHigh();
+          byte buttonState = digitalRead(BUTTON_PIN);
+
+          Serial.println("low: ");
+          Serial.println(lowLevel);
+          Serial.println("high: ");
+          Serial.println(highLevel);
+          delay(500);
+
+          if (highLevel > 600) {
+            Serial.print("Water level: ");
+            Serial.println(highLevel);
+            Serial.println("Water Level: Full");
+            delay(600);
+
+            // lcd.backlight();
+            // lcd.clear();
+            // lcd.setCursor(3, 0);
+            // lcd.print("Water Level");
+            // lcd.setCursor(6, 1);
+            // lcd.print("Full");
+
+            delay(500);
+            digitalWrite(RELAY_PIN, HIGH); // Turn off the pump
+          } else if (highLevel < 610 && lowLevel >= 620) {
+            Serial.println("Water level low");
+            // lcd.backlight();
+            // lcd.clear();
+            // lcd.setCursor(0, 0);
+            // lcd.print("Water Level Low");
+
+            // if (buttonState == LOW) {
+            //   Serial.println("Button is pressed");
+            //   digitalWrite(RELAY_PIN, LOW); // Activate the pump
+            //   Serial.println("Filling");
+
+            //   lcd.backlight();
+            //   lcd.clear();
+            //   lcd.setCursor(4, 0);
+            //   lcd.print("Filling");
+
+            // } else if (buttonState == HIGH) {
+            //   Serial.println("Button released");
+            //   digitalWrite(RELAY_PIN, HIGH); // Turn off the pump
+            //   Serial.println("ERROR when filling");
+            // }
+          } else {
+            Serial.println("Water Level: Low");
+            Serial.println("Time to Refill");
+            delay(500);
+
+            // lcd.backlight();
+            // lcd.clear();
+            // lcd.setCursor(0, 0);
+            // lcd.print("Water Level Low");
+            // lcd.setCursor(1, 1);
+            // lcd.print("Time to Refill");
+
+            if (buttonState == LOW) {
+              Serial.println("Button is pressed");
+              digitalWrite(RELAY_PIN, LOW); // Activate the pump
+              Serial.println("Filling");
+
+              // lcd.backlight();
+              // lcd.clear();
+              // lcd.setCursor(4, 0);
+              // lcd.print("Filling");
+
+            } else if (buttonState == HIGH) {
+              Serial.println("Button released");
+              digitalWrite(RELAY_PIN, HIGH); // Turn off the pump
+              Serial.println("ERROR when filling");
+            }
+          }
+        }
+
+        // This is a function used to get the reading for the LOW water level sensor
+        int readSensorLow() {
+          delay(10);                      // wait 10 milliseconds
+          return analogRead(sensorPinLow); // Read the analog value from sensor
+        }
+
+        // This is a function used to get the reading for the HIGH water level sensor
+        int readSensorHigh() {
+          delay(10);                       // wait 10 milliseconds
+          return analogRead(sensorPinHigh); // Read the analog value from sensor
+        }
+        </code></pre>
+    </div>
+</body>
+</html>
