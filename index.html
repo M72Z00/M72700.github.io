@@ -79,6 +79,13 @@
             margin-bottom: 0.5em;
         }
 
+
+        .screenshots img {
+            width: 100%;
+            max-width: 600px;
+            margin: 10px 0;
+            border: 2px solid #fff;
+
         /* Styling for the footer section */
         footer {
             background-color: #333;
@@ -193,20 +200,74 @@
 
 
             <!-- Project 4 section -->
-            <h2>Project 4: [Project Title]</h2>
-            <p>[Brief description of the project]</p>
-
+            <h2>Guessing Number 1-100 Game [Java]</h2>
+            <p>This Java-based guessing game was developed during my time as a student at California State University, Sacramento. The project was created to demonstrate fundamental programming concepts through an engaging console application. The game includes:</p>
+            <ul>
+                <li><strong>Random Number Generation:</strong> The game generates a random number between 1 and 100, teaching the use of randomization in programming and how to handle dynamic game elements.</li>
+                <li><strong>User Input Handling:</strong> Players input their guesses, and the game provides feedback on whether the guesses are too high, too low, or correct. This introduces concepts of user input processing and conditional statements.</li>
+                <li><strong>Guess Counting:</strong> The game tracks the number of attempts made by the player to guess the correct number. This feature demonstrates how to implement and update counters within a program.</li>
+                <li><strong>Replay Option:</strong> After a correct guess, the game offers an option to play again. This teaches how to use loops and method calls to create a continuous game experience.</li>
+                <li><strong>Error Handling:</strong> The game includes checks for invalid input, guiding users to enter integers within the specified range. This helps in understanding how to handle and validate user input effectively.</li>
+            </ul>
+            <p>This project effectively combines essential programming techniques and error handling, providing a hands-on learning experience in Java programming through a simple yet interactive game.</p>
+            <p></p>
+            <p>Here's an example of the game in action:</p>
+            <img src="https://github.com/M72Z00/M72Z00.github.io/blob/main/guessing%20game/Game%20Example%20Round.png?raw=true" alt="Guessing Game Example">
+            <p>You can view and download the source code for this game in the <a href="https://github.com/M72Z00/M72Z00.github.io/tree/main/guessing%20game">guessing game folder</a> of my GitHub repository.</p>
+            <p></p>
 
             <!-- Project 5 section -->
-            <h2>Project 5: [Project Title]</h2>
-            <p>[Brief description of the project]</p>
+            <h2>Pac-Man [Python]</h2>
+            <p>
+                This Pac-Man game, developed using Python and Pygame, is a classic arcade-style game that features a single-level maze for Pac-Man to navigate. The game combines the beloved elements of the original Pac-Man with modern programming practices, including customizable ghost AI and collision detection.
+            </p>
+            <h2>Game Features:</h2>
+            <ul>
+                <li><strong>Pac-Man:</strong> Controlled by the player, Pac-Man is represented as a yellow circle. The player's goal is to navigate Pac-Man through the maze to collect pellets while avoiding ghosts.</li>
+                <li><strong>Ghosts:</strong> The game features a ghost with basic AI, programmed to either chase Pac-Man or flee from it. The ghost’s behavior is determined by its AI type, making each encounter unique.</li>
+                <li><strong>Maze Layout:</strong> The maze is composed of walls and pellets. Walls are randomly sized and placed, while pellets are scattered throughout the maze. The maze's layout challenges the player to navigate carefully to avoid collisions.</li>
+                <li><strong>Gameplay Mechanics:</strong>
+                    <ul>
+                        <li><strong>Movement:</strong> Pac-Man moves in four directions (up, down, left, right) based on player input.</li>
+                        <li><strong>Collision Detection:</strong> The game checks for collisions between Pac-Man, walls, and pellets. Collisions with walls prevent Pac-Man from passing through, while collisions with pellets increase the player’s score.</li>
+                        <li><strong>Ghost Interaction:</strong> If Pac-Man collides with the ghost, the player loses a life. The game ends when all lives are lost.</li>
+                        <li><strong>Level Completion:</strong> The level is considered complete when all pellets have been collected, prompting a win message.</li>
+                    </ul>
+                </li>
+                <li><strong>User Interface:</strong>
+                    <ul>
+                        <li><strong>Start Screen:</strong> Displays a message prompting the player to press any key to start the game.</li>
+                        <li><strong>In-Game HUD:</strong> Shows the current score and number of lives remaining.</li>
+                        <li><strong>End Screens:</strong> Includes messages for game over and level completion, with options to restart or quit the game.</li>
+                    </ul>
+                </li>
+                <li><strong>Technical Details:</strong>
+                    <ul>
+                        <li><strong>Collision Handling:</strong> Uses Pygame's <code>Rect</code> objects for accurate collision detection between Pac-Man, ghosts, walls, and pellets.</li>
+                        <li><strong>AI Mechanics:</strong> The ghost uses simple vector mathematics to move towards or away from Pac-Man, depending on its AI type.</li>
+                        <li><strong>Frame Rate Control:</strong> The game runs at 30 frames per second to ensure smooth gameplay.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>
+                This game demonstrates fundamental game development concepts such as game loops, event handling, collision detection, and simple AI. It offers a nostalgic experience while showcasing your skills in Python and Pygame.
+            </p>
+
+            <div class="screenshots">
+                <h2>Game Screenshots:</h2>
+                <img src="pacman_python_game/pacman_game_begin.png" alt="Pac-Man Game Begin">
+                <img src="pacman_python_game/pacman_game.png" alt="Pac-Man Game">
+                <img src="pacman_python_game/pacman_gameover.png" alt="Pac-Man Game Over">
+                <img src="pacman_python_game/pacman_start.png" alt="Pac-Man Start">
+                <img src="pacman_python_game/pacman_win.png" alt="Pac-Man Win">
+            </div>
 
         </section>
     </main>
 
     <!-- Footer section with copyright information -->
     <footer>
-        <p>&copy; 2024 My Portfolio</p>
+        <p>&copy; 2024 MZ Portfolio</p>
     </footer>
 </body>
 <script>
